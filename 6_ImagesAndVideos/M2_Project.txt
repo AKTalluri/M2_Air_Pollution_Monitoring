@@ -1,0 +1,60 @@
+AIR POLLUTION MONITORING SYSTEM
+
+
+Working principle:
+When we keep some fuels which have harmful gases like CO2, NO2 etc(when we keep an inscence stick close to this sensor), the RED LED will glow and the buzzer starts ringing else if it is good quality air around, then green LED will glow.
+
+
+Block Diagram :
+
+ 
+
+Components Required :
+Gas Sensor MQ-135
+Arduino Uno
+Buzzer
+Breadboard
+Resistor 221 ohm
+5mm LED: RED
+5mm LED: GREEN
+
+CODE:
+int redLed = 12;
+int greenLed = 8;
+int buzzer = 10;
+int smokeA0 = A0;
+// Your threshold value
+int sensorThres = 150;
+
+void setup() {
+  pinMode(redLed, OUTPUT);
+  pinMode(greenLed, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(smokeA0, INPUT);
+  Serial.begin(9600);
+}
+void loop() {
+  int analogSensor = analogRead(smokeA0);
+  Serial.print("Pin A0: ");
+  Serial.println(analogSensor);
+  // Checks if it has reached the threshold value
+  if (analogSensor > sensorThres)
+  {
+    digitalWrite(redLed, HIGH);
+    digitalWrite(greenLed, LOW);
+    tone(buzzer, 3000, 300);
+  }
+  else
+  {
+    digitalWrite(redLed, LOW);
+    digitalWrite(greenLed, HIGH);
+    noTone(buzzer);
+  }
+  delay(100);
+}
+
+OutPut:When Sensor Detects Harmful gases Red Led will be blink
+or white LED Blinks for Good Gases.
+ 
+
+
